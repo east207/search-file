@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: search-file
+  profiles:
+    active: dev
+
+
+log:
+  root:
+    level: info
+
+
+
+
+
+
+
+
