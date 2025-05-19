@@ -8,15 +8,19 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "elasticsearch")
+@ConfigurationProperties(prefix = "spring.elasticsearch")
 public class ElasticsearchProperties {
 
-    @Value("host")
+    private String urls;
+
     private String host;
 
     private int port;
 
-    @Value("protocol")
     private String protocol;
+
+    private String username;
+
+    private String password;
 
 }

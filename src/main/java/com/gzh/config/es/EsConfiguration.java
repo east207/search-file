@@ -31,15 +31,29 @@ public class EsConfiguration {
         if (jsonpMapper == null) {
             jsonpMapper = new JacksonJsonpMapper();
         }
-        RestClient client = RestClient.builder(new HttpHost(
-                "192.168.1.12",
-                9200,
-                "http"
-        )).build();
 
-        RestClientTransport transport = new RestClientTransport(
-                client, jsonpMapper
-        );
+
+        // 用户名和密码，这是标准写法
+        final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY,
+                new UsernamePasswordCredentials(properties.getUsername(), properties.getPassword()));
+
+        RestClientBuilder builder = RestClient.builder(
+                new HttpHost(
+                        properties.getHost(),
+                        properties.getPort(),
+                        properties.getProtocol()
+                )
+        ).setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+            @Override
+            public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+                return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+            }
+        });
+
+        RestClient client = builder.build();
+
+        RestClientTransport transport = new RestClientTransport(client, jsonpMapper);
 
         return new ElasticsearchClient(transport);
     }

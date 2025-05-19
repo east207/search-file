@@ -12,6 +12,13 @@
         <relativePath/>
     </parent>
 
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>nexus</id>-->
+<!--            <url>http://129.211.50.12:8081/repository/gzh_maven_repository/</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+
 
     <groupId>com.gzh</groupId>
     <artifactId>search-file</artifactId>
@@ -277,11 +284,6 @@
                 <version>3.8.1</version>
             </plugin>
         </plugins>
-
-
-
-
-
 
 
     </build>
